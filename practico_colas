@@ -1,0 +1,201 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.2-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "#3. Implementar en un archivo de python la clase cola vista en clase\n",
+    "\n",
+    "\n",
+    "class Cola:\n",
+    "    def __init__(self):\n",
+    "        self.items = []\n",
+    "\n",
+    "    def estaVacia(self):\n",
+    "        return self.items == []\n",
+    "\n",
+    "    def agregar(self, item):\n",
+    "        self.items.insert(0,item)\n",
+    "\n",
+    "    def avanzar(self):\n",
+    "        if not self.estaVacia():\n",
+    "            return self.items.pop()\n",
+    "        \n",
+    "    def tamano(self):\n",
+    "        return len(self.items)\n",
+    "\n",
+    "#4. Imprementar imprimir(), vaciar() e invertir()\n",
+    "\n",
+    "    def imprimir(self):\n",
+    "        c=Cola()\n",
+    "        c.items=self.items\n",
+    "        while(not c.estaVacia()):\n",
+    "            print(c.avanzar())\n",
+    "\n",
+    "    def vaciar(self):\n",
+    "\n",
+    "        self.items.clear()\n",
+    "\n",
+    "    def invertir(self):\n",
+    "        lista=[]\n",
+    "        c=self.tamano()\n",
+    "        while(c>0):\n",
+    "            lista.append(self.avanzar())\n",
+    "            c=c-1\n",
+    "        self.items=lista\n",
+    "\n",
+    "#6. Imprementacion de concat()\n",
+    "    def concat(self, c2):\n",
+    "        for element in c2.items:\n",
+    "            self.agregar(element)\n",
+    "c1=Cola()\n",
+    "c2=Cola()\n",
+    "c1.agregar(1)\n",
+    "c1.agregar(4)\n",
+    "c1.agregar(8)\n",
+    "c2.agregar(4)\n",
+    "c1.agregar(2)\n",
+    "c1.agregar(7)\n",
+    "c1.concat(c2)\n",
+    "c1.imprimir()\n"
+   ],
+   "cell_type": "code",
+   "metadata": {
+    "tags": []
+   },
+   "execution_count": 29,
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": "1\n4\n8\n2\n7\n4\n"
+    }
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#5. Imprementar trasladar()\n",
+    "def trasladar(cola:Cola):\n",
+    "    c2=Cola()\n",
+    "    while(not cola.estaVacia()):\n",
+    "        c2.agregar(cola.avanzar())\n",
+    "    return c2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": "4\n2\n7\n1\n4\n8\n"
+    }
+   ],
+   "source": [
+    "#7. Implementacion de intercambiar.\n",
+    "def intercambiar(c1,c2):\n",
+    "    c3= Cola()\n",
+    "    while not c1.estaVacia():\n",
+    "        c3.agregar(c1.avanzar())\n",
+    "    while not c2.estaVacia():\n",
+    "        c1.agregar(c2.avanzar())\n",
+    "    while not c3.estaVacia():\n",
+    "        c2.agregar(c3.avanzar())\n",
+    "\n",
+    "c1=Cola()\n",
+    "c2=Cola()\n",
+    "c1.agregar(1)\n",
+    "c1.agregar(4)\n",
+    "c1.agregar(8)\n",
+    "c2.agregar(4)\n",
+    "c2.agregar(2)\n",
+    "c2.agregar(7)\n",
+    "intercambiar(c1, c2)\n",
+    "c1.imprimir()\n",
+    "c2.imprimir()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": "Pass 4 Joshua Lose\nPass 7 Mauro Lose\nPass 10 Naomi Lose\nPass 13 Lorenzo Lose\nPass 16 Lilia Lose\nPass 19 David Lose\nThe winner is... Tania\n"
+    }
+   ],
+   "source": [
+    "#8. Juego de la silla\n",
+    "def juego_silla(integrantes:list,contador):\n",
+    "    c1= Cola()\n",
+    "    i=1\n",
+    "    for element in integrantes:\n",
+    "        c1.agregar(element)\n",
+    "    while not c1.estaVacia():\n",
+    "        c=contador\n",
+    "        while(c>=0):\n",
+    "            if c==0:\n",
+    "                print(\"Pass\",i,c1.avanzar(),\"Lose\")\n",
+    "                break\n",
+    "                i=i+1\n",
+    "            else:\n",
+    "                c1.agregar(c1.avanzar())\n",
+    "                c=c-1\n",
+    "                i=i+1\n",
+    "        if(c1.tamano()==1):\n",
+    "            print(\"The winner is...\",c1.avanzar())\n",
+    "\n",
+    "lista=[\"Mauro\", \"Tania\",\"David\",\"Joshua\",\"Lorenzo\",\"Naomi\",\"Lilia\"]\n",
+    "juego_silla(lista,3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\"\"\"\n",
+    "9. Ejemplos de aplicacion de colas:\n",
+    "\n",
+    "    *Se utiliza a la hora de ir al hospital a ser atendido, al ingresar se te pide colocar numero de documento y/o numero de obra social en una computadora automatizada que expende los turnos mediante el orden de llegada, este tambien crea multiples colas basados en obra social o medico.\n",
+    "    *En los aeropuertos, a la hora de bajar de un vuelo para buscar las maletas, en la cinta transportadora seria conveniente que los primeros que reciban sus maletas sean los primeros en abordar dicho vuelo.\n",
+    "    \n",
+    "\n",
+    "\n",
+    "\"\"\""
+   ]
+  }
+ ]
+}
